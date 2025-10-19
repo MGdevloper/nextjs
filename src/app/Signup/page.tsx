@@ -1,7 +1,5 @@
 "use client"
 
-
-import React, { useEffect } from 'react'
 import axios from 'axios';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -17,7 +15,7 @@ function Signup() {
         try {
 
             toast.loading("Loading...")
-            let res = await axios.post("/api/user/signup", user)
+            const res = await axios.post("/api/user/signup", user)
             toast.dismiss();
             setTimeout(() => {
 

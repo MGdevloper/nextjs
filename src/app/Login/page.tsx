@@ -14,7 +14,7 @@ function Login() {
     setprocessing(true)
     let res;
     try {
-      let id = toast.loading("processing...")
+      const id = toast.loading("processing...")
       res = await axios.post("/api/user/login", user)
       toast.dismiss(id)
       setTimeout(() => {
@@ -103,7 +103,7 @@ function Login() {
 
             <button
               onClick={(e) => {
-                
+
                 e.preventDefault();
                 handlesubmit();
               }}
@@ -116,7 +116,10 @@ function Login() {
           </form>
 
           <div className="mt-6 text-center text-sm text-white/70">
-            Don't have an account?
+            <p>
+
+              Don&apos;t have an account?
+            </p>
             <Link href={"/Signup"}>
               <span className='text-indigo-300 hover:underline'> Sign up</span>
             </Link>
