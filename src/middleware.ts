@@ -24,18 +24,22 @@ export async function middleware(req: NextRequest) {
 
 
                 let data = await jwtVerify(token, new TextEncoder().encode(process.env.TOKEN_SECRET))
-                let {email}=data.payload
+                let { email } = data.payload
 
-                let res=await usersmodel.findOne({email})
+                let res = await usersmodel.findOne({ email })
                 console.log(res);
-                
 
-                if(res.verifyed==false){
+
+                if (res.verifyed == false) {
                     return NextResponse.redirect(new URL("/verify", req.nextUrl))
 
 
                 }
-            
+
+
+                // return NextResponse.redirect(new URL("/profile", req.nextUrl))
+
+
 
 
 
@@ -55,7 +59,7 @@ export async function middleware(req: NextRequest) {
 
     if (path == "/Login") {
         console.log("in login");
-        
+
         if (token != "") {
             try {
                 let res = await jwtVerify(token, new TextEncoder().encode(process.env.TOKEN_SECRET))
@@ -71,6 +75,23 @@ export async function middleware(req: NextRequest) {
         }
     }
 
+    if (path == "/verify") {
+        let data = await jwtVerify(token, new TextEncoder().encode(process.env.TOKEN_SECRET))
+        let { email } = data.payload
+
+        let res = await usersmodel.findOne({ email })
+        console.log(res);
+
+
+        if (res.verifyed == true) {
+            return NextResponse.redirect(new URL("/profile", req.nextUrl))
+
+
+        }
+
+
+    }
+
 
     return NextResponse.next()
 
@@ -79,5 +100,5 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
     matcher: ["/", "/Login", "/Signup", "/profile/:path*", "/verify/:token*"],
-    runtime:"nodejs"
+    runtime: "nodejs"
 }

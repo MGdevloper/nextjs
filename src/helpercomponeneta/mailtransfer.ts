@@ -19,11 +19,12 @@ const emailtransfer = async ({ email, emailtype, userid }: any) => {
         token=base64url.encode(token)
         
         const transporter = nodemailer.createTransport({
-            host: "sandbox.smtp.mailtrap.io",
-            port: 2525,
+            service:"gmail",
+            // port: 2525,
+
             auth: {
-                user: process.env.MAILTRAP_USER,
-                pass: process.env.MAILTRAP_PASS
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASS
             }
         });
 
