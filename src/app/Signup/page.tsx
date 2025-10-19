@@ -38,8 +38,11 @@ function Signup() {
                 toast.error(res.data.error);
             }
 
-        } catch (err) {
+        } catch (err:any) {
             console.log(err);
+            toast.dismiss();
+            toast.error(err.message)
+            setLoading(false)
         }
     }
     return (

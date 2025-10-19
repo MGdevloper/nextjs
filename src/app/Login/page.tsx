@@ -2,41 +2,41 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link';
-import axios from 'axios';    
+import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [user, setUser] = useState({ email: "", password: "" });
   const router = useRouter();
-  const [processing,setprocessing]=useState(false)
+  const [processing, setprocessing] = useState(false)
   async function handlesubmit() {
     setprocessing(true)
     let res;
-    try{
-      let id=toast.loading("processing...")
-      res =await axios.post("/api/user/login", user)
+    try {
+      let id = toast.loading("processing...")
+      res = await axios.post("/api/user/login", user)
       toast.dismiss(id)
       setTimeout(() => {
-        
+
         setprocessing(false)
       }, 2000);
-      console.log("response from login",res.data);
-      if(res.data.message=="All fields are required"){
+      console.log("response from login", res.data);
+      if (res.data.message == "All fields are required") {
         toast.error("All fields are required")
       }
-      if(res.data.message=="Invalid credentials"){
+      if (res.data.message == "Invalid credentials") {
         toast.error("Invalid credentials")
       }
 
-      if(res.data.message=="success"){
+      if (res.data.message == "success") {
         toast.success("Login successful")
         router.push("/profile")
       }
-      
+
     }
-    catch(err){
-      console.log("error in login",err);
+    catch (err) {
+      console.log("error in login", err);
     }
   }
   return (
@@ -89,10 +89,21 @@ function Login() {
               >
                 {showPassword ? 'Hide' : 'Show'}
               </button>
+
+
             </label>
+
+
+            <div className='w-full  flex justify-end '>
+              <Link className='text-[#4f46e5] underline' href={"/resetpassword"}>
+
+                forgot password
+              </Link>
+            </div>
 
             <button
               onClick={(e) => {
+                
                 e.preventDefault();
                 handlesubmit();
               }}
