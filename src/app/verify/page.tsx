@@ -1,6 +1,7 @@
 "use client"
 import axios from 'axios'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 
 export default function Verify() {
   const [email, setEmail] = useState('')
@@ -9,7 +10,8 @@ export default function Verify() {
     e.preventDefault()
     try{
 
-        await axios.post("/api/user/sendverificationemail")
+        let res=await axios.post("/api/user/sendverificationemail")
+        res.data.success==true?toast.success("verification email sent"):toast.error("error in sending verification email")
     }
     catch(err){
         console.log("error in sending verification email",err);

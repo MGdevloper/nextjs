@@ -21,13 +21,13 @@ export async function POST(req: NextRequest) {
 
 
 
-        return NextResponse.json({ message: paylod.payload })
+        return NextResponse.json({ message: paylod.payload ,success:true})
 
     }
     catch (err) {
         console.log(err);
 
-        return NextResponse.json({ message:err })
+        return NextResponse.json({ message:err, success:false })
 
     }
 }
